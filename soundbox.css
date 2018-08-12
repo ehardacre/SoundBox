@@ -120,3 +120,5 @@ html, body {
   margin-top: 7%;
   border-bottom: 2px solid white;
 }
+
+.fc-agendaDay-view .fc-today { background: none !important; }

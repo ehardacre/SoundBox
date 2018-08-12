@@ -15,11 +15,10 @@ $(document).ready(function () {
 
 $(function() {
   // document ready
-
   $("#calendar").fullCalendar({
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
     defaultView: "agendaDay",
-    defaultDate: "2018-04-07",
+    defaultDate: $('#calendar').fullCalendar('today'),
     height: 600,
     // editable: true,
     // selectable: true,
@@ -45,64 +44,64 @@ $(function() {
       {
         id: "1",
         resourceId: "a",
-        start: "2018-04-07T14:00:00",
-        end: "2018-04-07T16:00:00",
+        start: "2018-08-12T14:00:00",
+        end: "2018-08-12T16:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "2",
         resourceId: "a",
-        start: "2018-04-07T16:00:00",
-        end: "2018-04-07T18:00:00",
+        start: "2018-08-12T16:00:00",
+        end: "2018-08-12T18:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "3",
         resourceId: "a",
-        start: "2018-04-07T18:00:00",
-        end: "2018-04-07T20:00:00",
+        start: "2018-08-12T18:00:00",
+        end: "2018-08-12T20:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "4",
         resourceId: "b",
-        start: "2018-04-07T14:00:00",
-        end: "2018-04-07T16:00:00",
+        start: "2018-08-12T14:00:00",
+        end: "2018-08-12T16:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "5",
         resourceId: "b",
-        start: "2018-04-07T16:00:00",
-        end: "2018-04-07T18:00:00",
+        start: "2018-08-12T16:00:00",
+        end: "2018-08-12T18:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "6",
         resourceId: "b",
-        start: "2018-04-07T18:00:00",
-        end: "2018-04-07T20:00:00",
+        start: "2018-08-12T18:00:00",
+        end: "2018-08-12T20:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "7",
         resourceId: "c",
-        start: "2018-04-07T14:00:00",
-        end: "2018-04-07T17:00:00",
+        start: "2018-08-12T14:00:00",
+        end: "2018-08-12T17:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "8",
         resourceId: "c",
-        start: "2018-04-07T11:00:00",
-        end: "2018-04-07T14:00:00",
+        start: "2018-08-12T11:00:00",
+        end: "2018-08-12T14:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       }
