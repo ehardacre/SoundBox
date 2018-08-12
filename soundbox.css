@@ -1,0 +1,122 @@
+html, body {
+  overflow: hidden;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0!important;
+}
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    display: inline-block;
+}
+
+.soundboxLogo {
+  position: relative;
+  width:100px;
+  height: 50px;
+  margin: 20px;
+  padding: 10px;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.soundViz {
+  position:relative;
+  width: 100px;
+  height: 5px;
+  padding: 10px;
+  margin-left: 20px;
+  margin-top: -20;
+  border-left: 1px solid white;
+}
+
+.soundboxLogo p {
+  color: white;
+  text-align: right;
+  width: 100%;
+  margin-top: 0;
+  font-size: 15pt;
+  font-family: "Verdana";
+}
+
+.sidenav button {
+  margin-top: 20px;
+  padding: 0px 8px 0px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  border: none;
+  outline: none;
+  background-color: #111;
+  color: #818181;
+  position:relative;
+
+}
+
+.sidenav button:hover {
+    color: #f1f1f1;
+}
+
+#main {
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    font-size: 28px; /* Increased text to enable scrolling */
+    overflow: scroll;
+    height: 100%;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0!important;
+}
+
+#innerDiv {
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    height: 400%;
+    background-color: black;
+    background: linear-gradient(#255fbc,#25ba79);
+}
+
+.page {
+  height: 24%;
+  border-top: 1px solid white;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 1%;
+  display: inline-block;
+  position: relative;
+}
+
+.page h3 {
+  color: white;
+  font-family: "Verdana"
+}
+
+.page p {
+  color: white;
+  font-size: 12pt;
+  margin-top: -20px;
+
+}
+
+.page:first-child {
+  border-top: none;
+}
+
+#calendar {
+  width: 100%;
+  margin-left: 0%;
+  height: 70%;
+  margin-top: 7%;
+  border-bottom: 2px solid white;
+}
