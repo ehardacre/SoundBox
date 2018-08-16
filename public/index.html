@@ -5,8 +5,42 @@
     <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js" type="text/javascript"></script>
     <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js" type="text/javascript"></script>
     <script src="https://fullcalendar.io/releases/fullcalendar-scheduler/1.9.4/scheduler.min.js" type="text/javascript"></script>
-
-
+    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css'>
+    <link rel='stylesheet' type='text/css' href='soundbox.css'>
+  </head>
+  <body>
+    <div class = "sidenav">
+      <div class = "soundboxLogo">
+        <p>sound</p>
+      </div>
+      <div class = "soundViz"></div>
+      <button id="homeButton" class="sidenav-button" onclick="toHome()"> Home </button>
+      <button id="reserveButton" class="sidenav-button" onclick="toReserve()"> Reserve </button>
+      <button id="tutorialButton" class="sidenav-button" onclick="toTutorials()"> Tutorials </button>
+      <button id="portfolioButton" class="sidenav-button" onclick="toPortfolio()"> Portfolios </button>
+    </div>
+    <div id = "main">
+      <div id = "innerDiv">
+        <div class = "page" id = "homePage">
+          <h3> The Sound Box </h3>
+        </div>
+        <div class = "page" id = "reservePage">
+          <h3> Reserve a Time </h3>
+          <p> Schedule studio time at The Sound Box </p>
+          <div id='calendar'></div>
+          <!-- Why won't style work in CSS?? -->
+          <input type="password" id = "pass" placeholder="Admin Login"></input>
+        </div>
+        <div class = "page" id = "tutorialsPage">
+          <h3> Tutorials </h3>
+          <p> Tutorials created by our staff here at The Sound Box </p>
+        </div>
+        <div class = "page" id = "portfolioPage">
+          <h3> Portfolios </h3>
+          <p> Collections of work created here at The Sound Box </p>
+        </div>
+      </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
     <script>
       // Initialize Firebase
@@ -19,46 +53,10 @@
         messagingSenderId: "580793535230"
       };
       firebase.initializeApp(config);
-
       //npm install -g firebase-tools
       //firebase init
       //firebase serve
     </script>
-
-    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css'>
-    <link rel='stylesheet' type='text/css' href='soundbox.css'>
-  </head>
-  <body>
-    <div class = "sidenav">
-      <div class = "soundboxLogo">
-        <p>sound</p>
-      </div>
-      <div class = "soundViz"></div>
-      <button id="homeButton" onclick="toHome()"> Home </button>
-      <button id="reserveButton" onclick="toReserve()"> Reserve </button>
-      <button id="tutorialButton" onclick="toTutorials()"> Tutorials </button>
-      <button id="portfolioButton" onclick="toPortfolio()"> Portfolios </button>
-    </div>
-    <div id = "main">
-      <div id = "innerDiv">
-        <div class = "page" id = "homePage">
-          <h3> The Sound Box </h3>
-        </div>
-        <div class = "page" id = "reservePage">
-          <h3> Reserve a Time </h3>
-          <p> Schedule studio time at The Sound Box </p>
-          <div id='calendar'></div>
-        </div>
-        <div class = "page" id = "tutorialsPage">
-          <h3> Tutorials </h3>
-          <p> Tutorials created by our staff here at The Sound Box </p>
-        </div>
-        <div class = "page" id = "portfolioPage">
-          <h3> Portfolios </h3>
-          <p> Collections of work created here at The Sound Box </p>
-        </div>
-      </div>
-    </div>
     <script src="index.js"></script>
   </body>
 </html>

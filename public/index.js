@@ -163,3 +163,8 @@ function toTutorials(){
 }
 
 toHome();
+var firebaseRef = firebase.database().ref();
+window.ref = firebaseRef;
+firebaseRef.once('value').then(function(snapshot){
+  window.password = snapshot.val()['admin-password'];
+})

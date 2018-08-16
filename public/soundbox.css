@@ -97,6 +97,11 @@ html, body {
   position: relative;
 }
 
+#pass{
+  margin-top:10px;
+  outline:none;
+}
+
 .page h3 {
   color: white;
   font-family: "Verdana"
@@ -112,6 +117,10 @@ html, body {
 .page:first-child {
   border-top: none;
 }
+
+/*
+Calendar things
+*/
 
 #calendar {
   width: 100%;
