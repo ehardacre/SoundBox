@@ -13,6 +13,20 @@ $(document).ready(function () {
   });
 });
 
+function eventClicked(e){
+  var name = window.prompt("Please enter your name:","");
+  if (name == ""){
+    var email = window.prompt("Please enter your email:","");
+    if (email == ""){
+      var school = window.prompt("What school do you go to?","");
+      if (school == ""){
+
+        window.alert("Your reservation has been logged. If you have any questions please email eli.cohen@pomona.edu");
+      }
+    }
+  }
+}
+
 $(function() {
   // document ready
   $("#calendar").fullCalendar({
@@ -44,77 +58,70 @@ $(function() {
       {
         id: "1",
         resourceId: "a",
-        start: "2018-08-12T14:00:00",
-        end: "2018-08-12T16:00:00",
+        start: "2018-08-16T14:00:00",
+        end: "2018-08-16T16:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "2",
         resourceId: "a",
-        start: "2018-08-12T16:00:00",
-        end: "2018-08-12T18:00:00",
+        start: "2018-08-16T16:00:00",
+        end: "2018-08-16T18:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "3",
         resourceId: "a",
-        start: "2018-08-12T18:00:00",
-        end: "2018-08-12T20:00:00",
+        start: "2018-08-16T18:00:00",
+        end: "2018-08-16T20:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "4",
         resourceId: "b",
-        start: "2018-08-12T14:00:00",
-        end: "2018-08-12T16:00:00",
+        start: "2018-08-16T14:00:00",
+        end: "2018-08-16T16:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "5",
         resourceId: "b",
-        start: "2018-08-12T16:00:00",
-        end: "2018-08-12T18:00:00",
+        start: "2018-08-16T16:00:00",
+        end: "2018-08-16T18:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "6",
         resourceId: "b",
-        start: "2018-08-12T18:00:00",
-        end: "2018-08-12T20:00:00",
+        start: "2018-08-16T18:00:00",
+        end: "2018-08-16T20:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "7",
         resourceId: "c",
-        start: "2018-08-12T14:00:00",
-        end: "2018-08-12T17:00:00",
+        start: "2018-08-16T14:00:00",
+        end: "2018-08-16T17:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       },
       {
         id: "8",
         resourceId: "c",
-        start: "2018-08-12T11:00:00",
-        end: "2018-08-12T14:00:00",
+        start: "2018-08-16T11:00:00",
+        end: "2018-08-16T14:00:00",
         title: "Click To Reserve",
         textColor: "#000000"
       }
     ],
     eventClick: function(event, element) {
-      event.title = window.prompt(
-        "Enter your information to reserve the room:",
-        "[name], [college], [year]"
-      );
-      event.backgroundColor = "gray";
-      event.borderColor = "grey";
-
-      $("#calendar").fullCalendar("updateEvent", event);
+      eventClicked(event);
     }
   });
 });
@@ -162,9 +169,36 @@ function toTutorials(){
   scrollToPage(document.getElementById('tutorialsPage'));
 }
 
+window.admin = false;
+var input = document.getElementById('pass');
+input.onkeypress = function(event){
+  //if user presses Return in the textfield
+  if (event.which == 13){
+    var firebaseRef = firebase.database().ref();
+    window.ref = firebaseRef;
+    firebaseRef.once('value').then(function(snapshot){
+      var password = snapshot.val()['admin-password'];
+      //check if the password is correct
+      if (input.value == password){
+        window.alert("You are logged in as an admin.");
+        window.admin = true;
+        input.blur();
+        input.placeholder = "Log out";
+      }else{
+        window.alert("wrong admin password");
+        window.admin = false;
+      }
+      input.value = "";
+    });
+  }
+};
+
+input.onfocus = function(){
+  if (window.admin) {
+    input.blur();
+    input.placeholder = "Admin Login"
+    window.admin = false;
+  }
+}
+
 toHome();
-var firebaseRef = firebase.database().ref();
-window.ref = firebaseRef;
-firebaseRef.once('value').then(function(snapshot){
-  window.password = snapshot.val()['admin-password'];
-})
