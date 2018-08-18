@@ -1,41 +1,52 @@
-$(document).ready(function () {
-  $('main').scroll(function (event) {
-      console.log("scrolling");
-      var scroll = document.getElementById('main').scrollTop();
-      var pages = document.getElementsByClassName('page');
-      var pageOn = pages[0];
-      for (var i = 0; i < pages.length; i++){
-        if (scroll > pages[i].offsetTop){
-          pageOn = pages[i];
-        }
-      }
-      changeSender(pageOn);
-  });
-});
 
-function bookEvent(e){
-
+/**
+  Prompts the user and adds a new event to the database
+*/
+function addEvent(){
+  if (window.admin){
+    //the space the event will be added to
+    var input_space = window.prompt("Which space are would you like to add an event to? \n Enter 1 for Toolbox, 2 for Soundbox, 3 for Print Lab","1,2,3");
+    var spaces = []; //Split by comma unfinished
+    if(input_space != ""){
+        //collect start time and end time
+        //collect dates applies for
+    }
+  }
 }
 
+/**
+  Handles the user clicking on an event
+*/
 function eventClicked(e){
+  //if the event is a reserved event then the user is admin
   if (e.title.includes('RESERVED')){
+    //ALLOW ADMIN TO REMOVE RESERVATION and send confirmation email ****
+    //get the firebase reference
     var firebaseRef = firebase.database().ref();
     window.ref = firebaseRef;
     window.ref.once('value').then(function(snapshot){
+      //a snapshot of the reservations section of the database
       reservations = snapshot.val()['reservations'];
+      //read through the reservations and find the reservation for the event clicked
       for (r in reservations){
         if (reservations[r]['id'] == e.id){
+          //gather all information about the reservation
           var name = reservations[r]['name'];
           var school = reservations[r]['school'];
           var email = reservations[r]['email'];
           var str = `${name} from ${school} reserved this time slot and can be reached at ${email}`;
+          //present the user with reservation data
           window.alert(str);
         }
       }
     });
+  //if the event is not reserved
   }else{
+    //if the user is admin then allow them the opportunity to remove the event
     if (window.admin){
+      //prompts the user
       if (confirm("Delete this open reservation time?")){
+        //if confirms remove the event from firebase
         var firebaseRef = firebase.database().ref();
         window.ref = firebaseRef;
         window.ref.once('value').then(function(snapshot){
@@ -45,21 +56,23 @@ function eventClicked(e){
             if (!(events[n]['id'] == e.id)){
               newEvents.push(events[n]);
             }
-            console.log(newEvents);
           }
-          console.log(newEvents);
           window.ref.child('events').set(newEvents);
+          //reset the calendar
           setCalendar();
           window.alert("Event removed.");
         });
       }
+    //if the user is not an admin allow them to reserve the spot
     }else{
+      //collect all the info and stop if cancelled
       var name = window.prompt("Please enter your name:","");
       if (!name == ""){
         var email = window.prompt("Please enter your email:","");
         if (!email == ""){
           var school = window.prompt("What school do you go to?","");
           if (!school == ""){
+            //update the firebase
             var firebaseRef = firebase.database().ref();
             window.ref = firebaseRef;
             window.ref.once('value').then(function(snapshot){
@@ -73,7 +86,6 @@ function eventClicked(e){
               };
               reservations.push(r)
               window.ref.child('reservations').set(reservations);
-
               //update the events
               events = snapshot.val()['events'];
               for (n in events){
@@ -83,6 +95,7 @@ function eventClicked(e){
               }
               window.ref.child('events').set(events);
             });
+            //update the calendar
             setCalendar();
             window.alert("Your reservation has been logged. If you have any questions please email eli.cohen@pomona.edu");
           }
@@ -92,13 +105,21 @@ function eventClicked(e){
   }
 }
 
+/**
+  Sets the calendar to whatever data is held in firebase
+*/
 function setCalendar(){
+  //collect firebase data
   var firebaseRef = firebase.database().ref();
   window.ref = firebaseRef;
   window.ref.once('value').then(function(snapshot){
+    //collect all of the events
     events = snapshot.val()['events'];
+    //just slots that can be reserved
     open = [];
+    //all time slots (reserved and not)
     all = [];
+    //determine which events are visible to all users vs. only admin
     for (e in events){
       var full = events[e];
       if (!full['title'].includes('RESERVED')){
@@ -106,6 +127,7 @@ function setCalendar(){
       }
       all.push(full);
     }
+    //reset full calendar with new events from firebase
     $("#calendar").fullCalendar('destroy');
     if (window.admin) {
       $("#calendar").fullCalendar({
@@ -113,8 +135,6 @@ function setCalendar(){
         defaultView: "agendaDay",
         defaultDate: $('#calendar').fullCalendar('today'),
         height: 600,
-        // editable: true,
-        // selectable: true,
         allDaySlot: false,
         header: {
           left: "title",
@@ -173,15 +193,40 @@ function setCalendar(){
   });
 }
 
+/**
+ Changes the button that is selected in the sidenav
+*/
+function changeSender(sender){
+  resetNav();
+  sender.style.color = "#f1f1f1";
+}
+
+//on document start set calendar
 $(function() {
   // document ready
   setCalendar();
+
+  var pages = document.getElementsByClassName('page');
+  var prevPage = 0
+  var pageOn = 0
+  document.getElementById('main').onscroll = function(event){
+    var scroll = document.getElementById('main').scrollTop;
+    for (var i = 0; i < pages.length; i++){
+      if (scroll > pages[i].offsetTop - 50){
+        pageOn = i;
+      }
+    }
+    if(pageOn != prevPage){
+      prevPage = pageOn;
+      var button = document.getElementsByClassName('sidenav-button')[pageOn];
+      changeSender(button);
+    }
+  };
 });
 
-function addEvent(){
-
-}
-
+/**
+  Resets all navbar buttons so that the color can change on click
+*/
 function resetNav(){
   var navbar = document.getElementsByClassName('sidenav')[0];
   var buttons = navbar.getElementsByTagName('button');
@@ -190,11 +235,9 @@ function resetNav(){
   }
 }
 
-function changeSender(sender){
-  resetNav();
-  sender.style.color = "#f1f1f1";
-}
-
+/**
+  scrolls to the givin page
+*/
 function scrollToPage(page){
   var topScroll = page.offsetTop;
   var main = document.getElementById('main');
@@ -204,27 +247,30 @@ function scrollToPage(page){
   })
 }
 
+/**
+  These functions handle the events for onclick by each sidenav button
+*/
 function toHome(){
   changeSender(document.getElementById('homeButton'));
   scrollToPage(document.getElementById('homePage'));
 }
-
 function toReserve(){
   changeSender(document.getElementById('reserveButton'));
   scrollToPage(document.getElementById('reservePage'));
 }
-
 function toPortfolio(){
   changeSender(document.getElementById('portfolioButton'));
   scrollToPage(document.getElementById('portfolioPage'));
 }
-
 function toTutorials(){
   changeSender(document.getElementById('tutorialButton'));
   scrollToPage(document.getElementById('tutorialsPage'));
 }
 
+//runs on doc start
+//not admin
 window.admin = false;
+//check admin password based on firebase password
 var input = document.getElementById('pass');
 input.onkeypress = function(event){
   var firebaseRef = firebase.database().ref();
@@ -250,6 +296,7 @@ input.onkeypress = function(event){
   }
 };
 
+//change the input button to logout if admin is logged in
 input.onfocus = function(){
   if (window.admin) {
     input.blur();
@@ -260,9 +307,10 @@ input.onfocus = function(){
   }
 }
 
+//sets the initial page to home
 toHome();
 
-//dummy events
+//dummy events to load into firebase
 e = [
 {
   end: "2018-08-16T16:00:00",
@@ -281,6 +329,7 @@ e = [
   title: "Click to Reserve"
 }];
 
+//dummy reservations to load into firebase
 r = [
   {
     name: "Ethan Hardacre",
@@ -290,6 +339,7 @@ r = [
   }
 ]
 
+//load dummy data into firebase
 var firebaseRef = firebase.database().ref();
 window.ref = firebaseRef;
 window.ref.child('events').set(e);

@@ -6,6 +6,42 @@ html, body {
   padding-bottom: 0!important;
 }
 
+.mainContent {
+  display: inline-block;
+  float: left;
+  width: 80%;
+  height: 80%;
+  margin-top: 0;
+  border:none;
+  overflow: hidden;
+}
+
+.mainContent div {
+  
+}
+
+.pagination {
+
+}
+
+.pagination div {
+
+}
+
+.lrbutton {
+  display: inline-block;
+  float: left;
+  margin-left: 0;
+  width: 10%;
+  height: 80%;
+  margin-top: 0;
+  background-color: transparent;
+  border:none;
+  font-size: 30;
+  color:white;
+  outline: none;
+}
+
 .sidenav {
     height: 100%;
     width: 160px;
