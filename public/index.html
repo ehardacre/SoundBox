@@ -49,8 +49,23 @@
           <div id='calendar'></div>
           <!-- the input area for the admin password-->
           <input type="password" id = "pass" placeholder="Admin Login"></input>
+          <div id= 'admin'>
+            <form id = 'adminForm'>
+              <!--
+              <label for = "toolBox">Toolbox: </label>
+              <input type = "checkbox" name = "toolBox">
+
+              <label for = "toolBox">Toolbox: </label>
+              <input type = "checkbox" name = "toolBox">
+
+              <label for = "toolBox">Toolbox: </label>
+              <input type = "checkbox" name = "toolBox">
+            -->
+            </form>
+
+          </div>
           <!-- the button that allows admin to add an event (only visible when signed in as admin)-->
-          <button id = "addEvent" onclick="addEvent()">+</button>
+          <button id = "addEvent" onclick="showAdmin()">+</button>
         </div>
         <div class = "page" id = "tutorialsPage">
           <!-- the header for the section-->

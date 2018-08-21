@@ -158,6 +158,11 @@ html, body {
   opacity: 0.0;
 }
 
+#admin{
+  display: inline-block;
+  float: left;
+}
+
 ::placeholder{
   color: white;
 }

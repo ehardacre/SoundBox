@@ -352,3 +352,19 @@ var firebaseRef = firebase.database().ref();
 window.ref = firebaseRef;
 window.ref.child('events').set(e);
 window.ref.child('reservations').set(r);
+
+function showAdmin(){
+  $("#adminForm").append('<label for = "toolBox">Toolbox: </label>');
+  $("#adminForm").append('<input type = "checkbox" name = "toolBox">');
+  $("#adminForm").append('<label for = "soundBox">Soundbox: </label>');
+  $("#adminForm").append('<input type = "checkbox" name = "soundBox">');
+  $("#adminForm").append('<label for = "printlab">Printlab: </label>');
+  $("#adminForm").append('<input type = "checkbox" name = "printlab">');
+
+  $("#adminForm").append('<label for = "dateStart">Starte Time: </label>');
+  
+
+
+
+
+}
