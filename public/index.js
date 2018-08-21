@@ -4,13 +4,23 @@
 */
 function addEvent(){
   if (window.admin){
-    //the space the event will be added to
-    var input_space = window.prompt("Which space are would you like to add an event to? \n Enter 1 for Toolbox, 2 for Soundbox, 3 for Print Lab","1,2,3");
-    var spaces = []; //Split by comma unfinished
-    if(input_space != ""){
-        //collect start time and end time
-        //collect dates applies for
-    }
+    document.getElementById('reservePage');
+    // //the space the event will be added to
+    // var input_space = window.prompt("Which space are would you like to add an event to? \n Enter 1 for Toolbox, 2 for Soundbox, 3 for Print Lab","1,2,3");
+    // var spaces = input_space.split(",");
+    // if(spaces.length != 0){
+    //     var input_times = window.prompt("Enter the times you would like to make events for. \n 8:30AM-9:30AM,1:30PM-2:30PM,...","");
+    //     var times = input_times.split(",");
+    //     if(times.length != 0){
+    //        var input_dates = window.prompt("Enter the dates for which this event applies. \n mm/dd/yy-mm/dd/yy,...","");
+    //        var date_ranges = input_dates.split(",");
+    //        if(date_ranges.length != 0){
+    //
+    //        }
+    //     }
+    //     //collect start time and end time
+    //     //collect dates applies for
+    // }
   }
 }
 
@@ -134,8 +144,8 @@ function setCalendar(){
         schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
         defaultView: "agendaDay",
         defaultDate: $('#calendar').fullCalendar('today'),
-        height: 600,
         allDaySlot: false,
+        height: 550,
         header: {
           left: "title",
           center: "none",
@@ -163,10 +173,8 @@ function setCalendar(){
         schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
         defaultView: "agendaDay",
         defaultDate: $('#calendar').fullCalendar('today'),
-        height: 600,
-        // editable: true,
-        // selectable: true,
         allDaySlot: false,
+        height: 550,
         header: {
           left: "title",
           center: "none",
