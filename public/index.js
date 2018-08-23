@@ -382,7 +382,11 @@ window.ref = firebaseRef;
 window.ref.child('events').set(e);
 window.ref.child('reservations').set(r);
 
+
 function showAdmin(){
+
+$("#adminForm").append('<label for = "dateStart">Starte Time: </label>');
+
   $("#adminForm").append('<label for = "toolBox">Toolbox: </label>');
   $("#adminForm").append('<input type = "checkbox" name = "toolBox">');
   $("#adminForm").append('<label for = "soundBox">Soundbox: </label>');
@@ -390,7 +394,15 @@ function showAdmin(){
   $("#adminForm").append('<label for = "printlab">Printlab: </label>');
   $("#adminForm").append('<input type = "checkbox" name = "printlab">');
 
-  $("#adminForm").append('<label for = "dateStart">Starte Time: </label>');
+  $("#adminForm").append('<input id = "dateStart" name ="dateStart" type="text"/>');
+
+  $('input[name="dateStart"]').daterangepicker({
+    "opens": "center",
+    "drops": "up"
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+
   
 
 
