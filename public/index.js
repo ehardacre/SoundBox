@@ -5,22 +5,26 @@
 function addEvent(){
   if (window.admin){
     document.getElementById('reservePage');
-    // //the space the event will be added to
-    // var input_space = window.prompt("Which space are would you like to add an event to? \n Enter 1 for Toolbox, 2 for Soundbox, 3 for Print Lab","1,2,3");
-    // var spaces = input_space.split(",");
-    // if(spaces.length != 0){
-    //     var input_times = window.prompt("Enter the times you would like to make events for. \n 8:30AM-9:30AM,1:30PM-2:30PM,...","");
-    //     var times = input_times.split(",");
-    //     if(times.length != 0){
-    //        var input_dates = window.prompt("Enter the dates for which this event applies. \n mm/dd/yy-mm/dd/yy,...","");
-    //        var date_ranges = input_dates.split(",");
-    //        if(date_ranges.length != 0){
-    //
-    //        }
-    //     }
-    //     //collect start time and end time
-    //     //collect dates applies for
-    // }
+
+    var toolBoxCheck = $('#toolBox').val();
+
+    console.log(toolBoxCheck);
+
+    var soundBoxCheck = $('#soundBox').val();
+    var printlabCheck = $('#printlab').val();
+
+    var resourceID = [];
+
+
+
+    var event = {
+      end: "2018-08-16T16:00:00",
+      id: "1",
+      resourceId: "b",
+      start: "2018-08-16T14:00:00",
+      textColor: "#000000",
+      title: "RESERVED: Click to view"
+    }
   }
 }
 
@@ -324,6 +328,7 @@ input.onkeypress = function(event){
         input.blur();
         input.placeholder = "Log out";
         setCalendar();
+        showAdmin();
       }else{
         window.alert("wrong admin password");
         window.admin = false;
@@ -383,19 +388,38 @@ window.ref = firebaseRef;
 window.ref.child('events').set(e);
 window.ref.child('reservations').set(r);
 
+$('input[name="dateRange"]').daterangepicker({
+  "opens": "center",
+  "drops": "up"
+}, function(start, end, label) {
+  console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+});
 
+$('.timepicker').timepicker({
+  timeFormat: 'h:mm p',
+  interval: 30,
+  minTime: '9:00am',
+  maxTime: '9:00pm',
+  defaultTime: '11',
+  startTime: '9:00am',
+  dynamic: false,
+  dropdown: true,
+  scrollbar: true
+});
+
+window.selected = [];
 function showAdmin(){
 
-  $("#adminForm").append('<input id = "dateStart" name ="dateStart" type="text"/>');
 
-  $('input[name="dateStart"]').daterangepicker({
-    "opens": "center",
-    "drops": "up"
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
+  //$("#adminForm").append('<label for = "dateRange">Date Range: </label>');
+  //$("#adminForm").append('<input id = "dateRange" name ="dateRange" type="text"/>');
+
+  //$("#adminForm").append('<label for = "timeStart">Start Time: </label>');
+  //$("#adminForm").append('<input id = "timeStart" name ="timeStart" type="text" class="timepicker"/>');
 
 }
+
+
 
 function remove_selection(btn){
   if(btn.classList.contains("selected")){

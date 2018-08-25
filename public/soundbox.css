@@ -258,6 +258,11 @@ Calendar things
   opacity: 1.0;
 }
 
+.btn-group {
+  display: inline-block;
+  float: left;
+}
+
 .btn-group button {
     background-color: transparent;
     border: 1px solid white;
@@ -297,4 +302,25 @@ Calendar things
 .selected {
   background-color: white !important;
   color: #4286f4 !important;
+}
+
+#dateRange {
+  height: 50px !important;
+  display: inline-block;
+  float: left;
+  margin-left: 5px;
+}
+
+#timeStart {
+  height: 50px !important;
+  display: inline-block;
+  float: left;
+  margin-left: 5px;
+}
+
+#timeEnd {
+  height: 50px !important;
+  display: inline-block;
+  float: left;
+  margin-left: 5px;
 }
