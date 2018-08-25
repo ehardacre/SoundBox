@@ -139,6 +139,7 @@ html, body {
 #admin{
   display: inline-block;
   float: left;
+  width: 80%;
 }
 
 ::placeholder{
@@ -255,4 +256,45 @@ Calendar things
 .active, .dot:hover {
   background-color: #ffffff;
   opacity: 1.0;
+}
+
+.btn-group button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    height: 50px;
+    outline: none;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+.btn-group button(:first-child) {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.btn-group button(:last-child) {
+  border-radius: 0px 5px 5px 0px;
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: white;
+    color: #4286f4;
+}
+
+.selected {
+  background-color: white !important;
+  color: #4286f4 !important;
 }

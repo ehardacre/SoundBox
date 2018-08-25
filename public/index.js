@@ -333,6 +333,7 @@ input.onkeypress = function(event){
   }
 };
 
+
 //change the input button to logout if admin is logged in
 input.onfocus = function(){
   if (window.admin) {
@@ -385,15 +386,6 @@ window.ref.child('reservations').set(r);
 
 function showAdmin(){
 
-$("#adminForm").append('<label for = "dateStart">Starte Time: </label>');
-
-  $("#adminForm").append('<label for = "toolBox">Toolbox: </label>');
-  $("#adminForm").append('<input type = "checkbox" name = "toolBox">');
-  $("#adminForm").append('<label for = "soundBox">Soundbox: </label>');
-  $("#adminForm").append('<input type = "checkbox" name = "soundBox">');
-  $("#adminForm").append('<label for = "printlab">Printlab: </label>');
-  $("#adminForm").append('<input type = "checkbox" name = "printlab">');
-
   $("#adminForm").append('<input id = "dateStart" name ="dateStart" type="text"/>');
 
   $('input[name="dateStart"]').daterangepicker({
@@ -403,9 +395,27 @@ $("#adminForm").append('<label for = "dateStart">Starte Time: </label>');
     console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
   });
 
-  
+}
 
+function remove_selection(btn){
+  if(btn.classList.contains("selected")){
+    btn.classList.remove("selected");
+  }else{
+    btn.classList.add("selected");
+  }
+}
 
+function sel_a(){
+  var btn = document.getElementById('a');
+  remove_selection(btn);
+}
 
+function sel_b(){
+  var btn = document.getElementById('b');
+  remove_selection(btn);
+}
 
+function sel_c(){
+  var btn = document.getElementById('c');
+  remove_selection(btn);
 }
