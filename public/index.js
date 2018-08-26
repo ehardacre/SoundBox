@@ -6,14 +6,22 @@ function addEvent(){
   if (window.admin){
     document.getElementById('reservePage');
 
-    var toolBoxCheck = $('#toolBox').val();
+    var buttons = document.getElementsByClassName('btn-group')[0].getElementsByTagName("button");
+    var selectedButtons = [];
+    for(el in buttons){
+      console.log(buttons[el].classList);
+      if(buttons[el].classList != undefined){
+        if(buttons[el].classList.contains("selected")){
+          console.log("inside check for containing selected");
+         selectedButtons.push(el.id);
+        }
+      }
+    }
 
-    console.log(toolBoxCheck);
+    console.log(selectedButtons.length);
+    // now loop through selectedButtons and see which ones are selected (a,b,c)
+    
 
-    var soundBoxCheck = $('#soundBox').val();
-    var printlabCheck = $('#printlab').val();
-
-    var resourceID = [];
 
 
 
@@ -328,7 +336,7 @@ input.onkeypress = function(event){
         input.blur();
         input.placeholder = "Log out";
         setCalendar();
-        showAdmin();
+        $('#adminForm').show();
       }else{
         window.alert("wrong admin password");
         window.admin = false;
@@ -347,6 +355,7 @@ input.onfocus = function(){
     input.placeholder = "Admin Login"
     window.admin = false;
     setCalendar();
+    $('#adminForm').hide();
   }
 }
 
