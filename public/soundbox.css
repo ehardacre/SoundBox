@@ -142,7 +142,7 @@ html, body {
   width: 80%;
 }
 
-::placeholder{
+#pass::placeholder{
   color: white;
 }
 

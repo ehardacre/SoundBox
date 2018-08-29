@@ -4,38 +4,133 @@
 */
 function addEvent(){
   if (window.admin){
-    document.getElementById('reservePage');
+    var firebaseRef = firebase.database().ref();
+    window.ref = firebaseRef;
+    window.ref.once('value').then(function(snapshot){
+      //collect all of the events
+      events = snapshot.val()['events'];
+      var counter = snapshot.val()['counter'];
+      console.log("counter: " + counter);
 
-    var buttons = document.getElementsByClassName('btn-group')[0].getElementsByTagName("button");
-    var selectedButtons = [];
-    for(el in buttons){
-      console.log(buttons[el].classList);
-      if(buttons[el].classList != undefined){
-        if(buttons[el].classList.contains("selected")){
-          console.log("inside check for containing selected");
-         selectedButtons.push(el.id);
+      document.getElementById('reservePage');
+
+      var buttons = document.getElementsByClassName('btn-group')[0].getElementsByTagName("button");
+      var selectedButtons = [];
+      for(el in buttons){
+        if(buttons[el].classList != undefined){
+          if(buttons[el].classList.contains("selected")){
+          
+           selectedButtons.push(buttons[el].id);
+          }
         }
       }
-    }
 
-    console.log(selectedButtons.length);
-    // now loop through selectedButtons and see which ones are selected (a,b,c)
-    
+      // parse date range
+      var range = $('#dateRange').val();
 
+      // this splits the input of the date range into 3 elements, the middle element at index 1 is just a dash --> "-"
+      var dateList = range.split(" ");
 
+      var beginning = new Date(dateList[0]);
+      var ending = new Date(dateList[2]);
 
+      while(beginning <= ending){
+        var curDate = beginning.yyyymmdd();
+        // errors with date format, check built in methods for Date type to see if we can reformat it
+        // var curDate = beginning.toString().split("/");
 
-    var event = {
-      end: "2018-08-16T16:00:00",
-      id: "1",
-      resourceId: "b",
-      start: "2018-08-16T14:00:00",
-      textColor: "#000000",
-      title: "RESERVED: Click to view"
-    }
+        var formattedDate = curDate[0] + "-" + curDate[1] + "-" + curDate[2];
+        console.log("start: " + formattedDate);
+        // now convert start time to 24hr and append it to the end of start
+        var sTime = convertTo24($('#timeStart').val());
+        var finalStartTime = formattedDate + sTime;
+
+        var endTime = convertTo24($('#timeEnd').val());
+        finalEndTime = formattedDate + endTime;
+
+        if(sTime == "error" || endTime == "error"){
+          alert("Error in time format");
+          break;
+        }
+
+        console.log(selectedButtons);
+
+        for(resource in selectedButtons){
+          if(selectedButtons[resource]!=undefined){
+              var event = {
+              end: finalEndTime,
+              id: counter,
+              resourceId: selectedButtons[resource],
+              start: finalStartTime,
+              textColor: "#000000",
+              title: "Click to Reserve"
+              }
+            console.log(event);
+            counter = counter + 1;
+            events.push(event);
+            }
+        }
+        var newDate = beginning.setDate(beginning.getDate() + 1);
+        beginning = new Date(newDate);
+          
+
+      }
+      window.ref.child("events").set(events);
+      window.ref.child("counter").set(counter);
+      setCalendar();
+
+    });
+
   }
 }
 
+Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ];
+};
+
+
+function convertTo24(time){
+  var time = time.toLowerCase();
+
+  if(time.includes("am")){
+      var timeNumber = time.split("a")[0].trim().split(":");
+
+      var hour = parseInt(timeNumber[0]);
+      var min = timeNumber[1];
+
+      if(hour == 12){
+        hour = 0;
+        finalTime = hour.toString();
+      }
+      else if(hour < 10){
+        finalTime = "0" + hour.toString();
+      }
+
+      finalTime = "T" + finalTime + ":" + min + ":00";
+      return finalTime;
+  }
+  else if(time.includes("pm")){
+      var timeNumber = time.split("p")[0].trim()
+      var hour = parseInt(timeNumber[0]);
+      var min = timeNumber[1];
+
+      if(hour != 12){
+        hour = hour + 12;
+      }
+
+      finalTime = "T" + hour.toString() + ":" + min + ":00";
+      return finalTime;
+  }
+  else{
+    return "error";
+  }
+}
 /**
   Handles the user clicking on an event
 */
@@ -58,7 +153,9 @@ function eventClicked(e){
           var email = reservations[r]['email'];
           var str = `${name} from ${school} reserved this time slot and can be reached at ${email}`;
           //present the user with reservation data
+          setCalendar();
           window.alert(str);
+
         }
       }
     });
@@ -362,40 +459,40 @@ input.onfocus = function(){
 //sets the initial page to home
 toHome();
 
-//dummy events to load into firebase
-e = [
-{
-  end: "2018-08-16T16:00:00",
-  id: "1",
-  resourceId: "b",
-  start: "2018-08-16T14:00:00",
-  textColor: "#000000",
-  title: "RESERVED: Click to view"
-},
-{
-  end: "2018-08-16T16:00:00",
-  id: "2",
-  resourceId: "a",
-  start: "2018-08-16T14:00:00",
-  textColor: "#000000",
-  title: "Click to Reserve"
-}];
+// //dummy events to load into firebase
+//  e = [
+// {
+//   end: "2018-08-16T16:00:00",
+//   id: "1",
+//   resourceId: "b",
+//   start: "2018-08-16T14:00:00",
+//   textColor: "#000000",
+//   title: "RESERVED: Click to view"
+// },
+// {
+//   end: "2018-08-16T16:00:00",
+//   id: "2",
+//   resourceId: "a",
+//   start: "2018-08-16T14:00:00",
+//   textColor: "#000000",
+//   title: "Click to Reserve"
+// }];
 
-//dummy reservations to load into firebase
-r = [
-  {
-    name: "Ethan Hardacre",
-    email: "hardacre.ethan@gmail.com",
-    school: "Pomona",
-    id: "1"
-  }
-]
+// // //dummy reservations to load into firebase
+//  r = [
+//   {
+//     name: "Ethan Hardacre",
+//     email: "hardacre.ethan@gmail.com",
+//     school: "Pomona",
+//     id: "1"
+//   }
+//  ];
 
-//load dummy data into firebase
-var firebaseRef = firebase.database().ref();
-window.ref = firebaseRef;
-window.ref.child('events').set(e);
-window.ref.child('reservations').set(r);
+// //load dummy data into firebase
+// var firebaseRef = firebase.database().ref();
+// window.ref = firebaseRef;
+// window.ref.child('events').set(e);
+// window.ref.child('reservations').set(r);
 
 $('input[name="dateRange"]').daterangepicker({
   "opens": "center",
